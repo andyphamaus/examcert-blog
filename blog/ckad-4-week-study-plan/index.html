@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Exact 4-Week Study Plan That Got Me Through the CKAD</title>
+<meta name="description" content="Certified Kubernetes Application Developer (CKAD) study guide and tips.">
+<link rel="canonical" href="https://andyphamaus.github.io/examcert-blog/blog/ckad-4-week-study-plan/">
+<style>body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:760px;margin:0 auto;padding:2rem 1.2rem;line-height:1.7;color:#1a1a2e}h1{font-size:2rem;line-height:1.2}h2{margin-top:2rem;color:#16213e}a{color:#0066cc}code{background:#f0f0f5;padding:2px 6px;border-radius:4px}</style>
+</head><body>
+<article><img alt="Certified Kubernetes Application Developer (CKAD)" src="https://raw.githubusercontent.com/andyphamaus/examcert-blog/main/heroes/2026-06-30/11-ckad.png" style="max-width:100%;border-radius:10px;margin:1.5rem 0">
+<p>I'm going to give you the actual week-by-week, topic-by-topic plan I followed to pass the Certified Kubernetes Application Developer exam — not a motivational pep talk, an executable curriculum. If you follow it and put in the reps, four focused weeks gets you across the line. Here's everything.</p>
+<h2>First, understand what you're walking into</h2>
+<p>The CKAD is <em>not</em> a multiple-choice exam. It's <strong>100% hands-on and performance-based.</strong> You get a live terminal and real clusters, and <strong>2 hours</strong> to complete 15–20 tasks. The pass mark is <strong>66%.</strong> Crucially, it's the <em>developer</em> counterpart to the CKA — less about administering clusters, more about deploying and operating <em>applications</em> on them.</p>
+<p>The official domains and weights are your study map, so let's build the plan around them:</p>
+<ul>
+<li><strong>Application Design and Build (20%)</strong> — container images, jobs, cronjobs, multi-container pods, init containers, volumes</li>
+<li><strong>Application Deployment (20%)</strong> — deployments, rolling updates, rollbacks, Helm basics, deployment strategies</li>
+<li><strong>Application Observability and Maintenance (15%)</strong> — probes (liveness/readiness/startup), logging, debugging, the API deprecations</li>
+<li><strong>Application Environment, Configuration and Security (25%)</strong> — configmaps, secrets, security contexts, service accounts, resource limits, the biggest domain</li>
+<li><strong>Services and Networking (20%)</strong> — services, network policies, ingress</li>
+</ul>
+<h2>The non-negotiable setup (do this before week 1)</h2>
+<p>Two things to internalize from day zero, because they decide whether you finish in time:</p>
+<ol>
+<li><strong>Imperative kubectl over YAML by hand.</strong> You will not have time to hand-write manifests. Learn <code>kubectl run</code>, <code>kubectl create</code>, and <code>--dry-run=client -o yaml</code> to generate scaffolding instantly, then edit.</li>
+<li><strong>Docs navigation.</strong> You're allowed the official Kubernetes docs in the exam. Practice finding examples <em>fast</em> — your speed in the docs is a real, scored skill.</li>
+</ol>
+<p>Set up <code>alias k=kubectl</code> and <code>export do="--dry-run=client -o yaml"</code> muscle memory now.</p>
+<h2>Week 1 — Core objects + Application Design (20%)</h2>
+<p>Build your foundation and your typing speed simultaneously.</p>
+<ul>
+<li>Pods, multi-container pods (sidecar pattern), init containers</li>
+<li>Jobs and CronJobs — know the difference and the key fields (<code>completions</code>, <code>parallelism</code>, <code>restartPolicy</code>)</li>
+<li>Volumes — emptyDir, hostPath, and how they mount</li>
+<li>Container fundamentals — building and understanding images</li>
+</ul>
+<p><strong>Daily habit from week 1:</strong> do everything imperatively, time yourself, and never hand-write a manifest you could generate. By the end of week 1 you should be able to spin up a multi-container pod with a shared volume in under two minutes.</p>
+<h2>Week 2 — Deployment + Configuration/Security (the heavy 25% domain)</h2>
+<ul>
+<li>Deployments, rolling updates, rollbacks (<code>kubectl rollout</code>), scaling</li>
+<li>Deployment strategies — rolling vs recreate, and the concept of blue/green and canary</li>
+<li>Helm at a basic level (install a chart, understand values)</li>
+<li><strong>ConfigMaps and Secrets</strong> — creating them every way (from literal, from file, from env), and mounting them as env vars vs volumes</li>
+<li>Security contexts — runAsUser, runAsNonRoot, capabilities, readOnlyRootFilesystem</li>
+<li>Service accounts and resource requests/limits</li>
+</ul>
+<p>This is the densest week because Configuration & Security is the single biggest domain (25%). Don't rush it. The configmap/secret injection patterns show up constantly, and security contexts are easy points <em>if</em> you've practiced the exact fields.</p>
+<h2>Week 3 — Observability + Services & Networking (15% + 20%)</h2>
+<ul>
+<li><strong>Probes</strong> — liveness, readiness, and startup probes. Know when to use each and the exact YAML. This is a guaranteed exam topic.</li>
+<li>Logging and debugging — <code>kubectl logs</code>, <code>kubectl describe</code>, <code>kubectl exec</code>, debugging a CrashLoopBackOff</li>
+<li>Services — ClusterIP, NodePort, and how a service selects pods via labels</li>
+<li>Ingress — routing rules, path-based routing</li>
+<li><strong>Network policies</strong> — ingress/egress rules, podSelector, namespaceSelector. People find these fiddly, so drill them.</li>
+</ul>
+<p>By the end of week 3 you've covered 100% of the domains. The cluster should feel like home — you can deploy an app, expose it, add probes, lock it down with a network policy, and debug it when it breaks.</p>
+<h2>Week 4 — Timed full mocks + weakness targeting</h2>
+<p>No new material. This week is pure performance tuning, and it's where pass/fail is actually decided.</p>
+<ul>
+<li>Take <strong>full, timed, 2-hour mock exams.</strong> The clock is the real adversary. Your first timed run will probably feel frantic — that's the point. I took a <a href="https://www.examcert.app/exams/ckad/free-practice-test/">free CKAD practice test</a> under strict time pressure, and the first attempt humbled me even though I "knew" everything.</li>
+<li>After each mock, identify your two slowest/weakest task types and drill <em>only</em> those for speed the next day.</li>
+<li>Practice the triage skill: read all tasks, do high-value/fast ones first, flag and skip time sinks.</li>
+<li>Keep cycling fresh task sets — I used <a href="https://www.examcert.app/exams/ckad/">ExamCert</a> so I was solving new problems each session instead of memorizing yesterday's, which is the only way to build transferable speed.</li>
+</ul>
+<p>My mock scores went from a panicked 60% on the first timed attempt to a steady 85%+ by the end of the week. The knowledge didn't change — my <em>speed</em> did. That's the entire week-4 mission.</p>
+<h2>The mindset that ties it together</h2>
+<p>The CKAD rewards three things, in this order: <strong>knowing the concept, executing it fast, and triaging well.</strong> Most people nail the first and neglect the other two, then wonder why they ran out of time with tasks left undone. Your study plan must build all three, which is why the imperative-command speed work and the week-4 timed mocks aren't optional extras — they're the core.</p>
+<p>Four weeks of consistent, hands-on evenings is genuinely enough if you front-load the kubectl speed habit and back-load the timed practice. Don't just read about Kubernetes — <em>do</em> it, every single session, against a clock.</p>
+<p>Start today: set up your aliases, generate (don't write) your first deployment, and book a <a href="https://www.examcert.app/exams/ckad/free-practice-test/">free CKAD practice test</a> for the end of week one so you have a baseline to beat. Follow the plan, respect the clock, and in four weeks you'll be a Certified Kubernetes Application Developer.</p></article>
+<footer style="margin-top:3rem;border-top:1px solid #eee;padding-top:1rem;font-size:.9rem;color:#666">Practice free at <a href="https://www.examcert.app/exams/ckad/">ExamCert</a>.</footer>
+</body></html>
